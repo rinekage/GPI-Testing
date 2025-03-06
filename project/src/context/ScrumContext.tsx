@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase'; // Import Supabase client
 
-// Define types
+// Define types -> this matchess the SQL tables defined in SUPABASE
 export interface Task {
   id: string;
   title: string;
@@ -62,7 +62,7 @@ interface ScrumContextType {
 // Create context
 const ScrumContext = createContext<ScrumContextType | undefined>(undefined);
 
-// Provider component
+// Provider component -> this initiates the entire Context on app startup
 export const ScrumProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [stories, setStories] = useState<Story[]>([]);
@@ -95,7 +95,7 @@ export const ScrumProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     else setStories(data || []);
   };
 
-  // Fetch all data from Supabase when app loads
+  // Fetch all data from Supabase when app loads, populates the context of the APP
   useEffect(() => {
     fetchTasks();
     fetchSprints();
